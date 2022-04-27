@@ -8,6 +8,12 @@ const HEIGHT = 768
 function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
+  const startDrawing = () => {};
+  
+  const endDrawing = () => {};
+  
+  const draw = () => {};
+
   const getCanvasWithContext = (canvas = canvasRef.current) => {
     return {
       canvas,
@@ -37,7 +43,13 @@ function App() {
           <button aria-label="Close" />
         </div>
       </div>
-      <canvas ref={canvasRef} />
+      <canvas
+        onMouseDown={startDrawing}
+        onMouseMove={draw}
+        onMouseOut={endDrawing}
+        onMouseUp={endDrawing}
+        ref={canvasRef}
+      />
     </div>
   );
 }
