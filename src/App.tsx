@@ -1,6 +1,9 @@
 import React, { useRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
 
+import { beginStroke, endStroke, updateStroke } from './actions'
 import { clearCanvas, setCanvasSize } from './utils/canvasUtils';
+import { RootState } from './utils/types';
 
 const WIDTH = 1024
 const HEIGHT = 768
@@ -8,18 +11,33 @@ const HEIGHT = 768
 function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const startDrawing = () => {};
-  
-  const endDrawing = () => {};
-  
-  const draw = () => {};
-
   const getCanvasWithContext = (canvas = canvasRef.current) => {
     return {
       canvas,
       context: canvas?.getContext('2d')
     }
   }
+
+  const isDrawing = useSelector<RootState>(
+    state => !!state.currentStroke.points.length
+  );
+
+  const dispatch = useDispatch();
+  
+  const draw = ({ nativeEvent }: React.MouseEvent<HTMLCanvasElement>) => {
+    if (!isDrawing) return;
+    const { offsetX, offsetY } = nativeEvent;
+    dispatch(updateStroke(offsetX, offsetY));
+  };
+  
+  const endDrawing = () => {
+    if (isDrawing) dispatch(endStroke());
+  };
+
+  const startDrawing = ({ nativeEvent }: React.MouseEvent<HTMLCanvasElement>) => {
+    const { offsetX, offsetY } = nativeEvent;
+    dispatch(beginStroke(offsetX, offsetY));
+  };
 
   useEffect(() => {
     const { canvas, context } = getCanvasWithContext();
