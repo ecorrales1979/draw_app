@@ -2,14 +2,15 @@ import React, { useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 
 import { beginStroke, endStroke, updateStroke } from './actions'
-import { clearCanvas, setCanvasSize } from './utils/canvasUtils';
-import { RootState } from './utils/types';
+import { currentStrokeSelector } from './reducers/rootReducer';
+import { clearCanvas, drawStroke, setCanvasSize } from './utils/canvasUtils';
 
 const WIDTH = 1024
 const HEIGHT = 768
 
 function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const currentStroke = useSelector(currentStrokeSelector);
 
   const getCanvasWithContext = (canvas = canvasRef.current) => {
     return {
@@ -18,9 +19,7 @@ function App() {
     }
   }
 
-  const isDrawing = useSelector<RootState>(
-    state => !!state.currentStroke.points.length
-  );
+  const isDrawing = !!currentStroke.points.length;
 
   const dispatch = useDispatch();
   
@@ -51,7 +50,16 @@ function App() {
     context.strokeStyle = 'black';
 
     clearCanvas(canvas);
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    const { context } = getCanvasWithContext();
+    if (!context) return;
+
+    requestAnimationFrame(() => {
+      drawStroke(context, currentStroke.points, currentStroke.color);
+    })
+  }, [currentStroke]);
 
   return (
     <div className="window">
