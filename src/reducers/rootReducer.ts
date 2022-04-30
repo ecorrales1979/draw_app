@@ -1,4 +1,10 @@
-import { Action, BEGIN_STROKE, UPDATE_STROKE, END_STROKE } from "../actions";
+import {
+  Action,
+  BEGIN_STROKE,
+  UPDATE_STROKE,
+  END_STROKE,
+  SET_STROKE_COLOR,
+} from "../actions";
 import { RootState } from "../utils/types";
 
 const initialState: RootState = {
@@ -39,6 +45,14 @@ export const rootReducer = (
           points: [],
         },
         strokes: [...state.strokes, state.currentStroke],
+      };
+    case SET_STROKE_COLOR:
+      return {
+        ...state,
+        currentStroke: {
+          ...state.currentStroke,
+          ...{ color: action.payload },
+        },
       };
     default:
       return state;

@@ -3,6 +3,7 @@ import { Point } from "../utils/types";
 export const BEGIN_STROKE = "BEGIN_STROKE";
 export const UPDATE_STROKE = "UPDATE_STROKE";
 export const END_STROKE = "END_STROKE";
+export const SET_STROKE_COLOR = "SET_STROKE_COLOR";
 
 export type Action =
   | {
@@ -15,6 +16,10 @@ export type Action =
     }
   | {
       type: typeof END_STROKE;
+    }
+  | {
+      type: typeof SET_STROKE_COLOR;
+      payload: string;
     };
 
 export const beginStroke = (x: number, y: number) => ({
@@ -29,4 +34,9 @@ export const updateStroke = (x: number, y: number) => ({
 
 export const endStroke = () => ({
   type: END_STROKE,
+});
+
+export const setStrokeColor = (color: string) => ({
+  type: SET_STROKE_COLOR,
+  payload: color,
 });
