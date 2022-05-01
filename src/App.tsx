@@ -63,21 +63,23 @@ function App() {
   }, [currentStroke]);
 
   return (
-    <div className="window">
+    <div id="main-window" className="window">
       <div className="title-bar">
         <div className="title-bar-text">Draw App</div>
         <div className="title-bar-controls">
           <button aria-label="Close" />
         </div>
       </div>
-      <ColorPanel />
-      <canvas
-        onMouseDown={startDrawing}
-        onMouseMove={draw}
-        onMouseOut={endDrawing}
-        onMouseUp={endDrawing}
-        ref={canvasRef}
-      />
+      <div id="content" className="window-body">
+        <ColorPanel />
+        <canvas
+          onMouseDown={startDrawing}
+          onMouseMove={draw}
+          onMouseOut={endDrawing}
+          onMouseUp={endDrawing}
+          ref={canvasRef}
+        />
+      </div>
     </div>
   );
 }
