@@ -1,0 +1,13 @@
+.toolbar-item {
+  font-family: var(--sans-serif);
+  -webkit-font-smoothing: antialiased;
+  box-shadow: none;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.divider {
+  border-right: 1px solid rgba(208, 206, 191, 0.75);
+  border-left: 1px solid rgba(255, 255, 255, 0.75);
+  margin: 0px 3px;
+}

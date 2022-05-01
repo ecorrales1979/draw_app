@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { beginStroke, endStroke, updateStroke } from './actions'
 import { ColorPanel } from './components/ColorPanel';
+import { Toolbar } from './components/Toolbar';
 import { currentStrokeSelector } from './reducers/rootReducer';
 import { clearCanvas, drawStroke, setCanvasSize } from './utils/canvasUtils';
 
@@ -70,6 +71,7 @@ function App() {
           <button aria-label="Close" />
         </div>
       </div>
+      <Toolbar />
       <div id="content" className="window-body">
         <ColorPanel />
         <canvas
