@@ -13,6 +13,10 @@
     inset 2px 2px #0a0a0a;
 }
 
+.color.selected {
+  box-shadow: inset -2px -2px #000, inset 2px 2px #000;
+}
+
 .colors-panel {
   position: fixed;
   bottom: 40px;
