@@ -4,6 +4,8 @@ import {
   UPDATE_STROKE,
   END_STROKE,
   SET_STROKE_COLOR,
+  OPEN_COLOR_PANEL,
+  CLOSE_COLOR_PANEL,
 } from "../actions";
 import { RootState } from "../utils/types";
 
@@ -13,6 +15,7 @@ const initialState: RootState = {
     color: "#000",
   },
   strokes: [],
+  viewColorPanel: false,
 };
 
 export const rootReducer = (
@@ -54,9 +57,21 @@ export const rootReducer = (
           ...{ color: action.payload },
         },
       };
+    case OPEN_COLOR_PANEL:
+      return {
+        ...state,
+        viewColorPanel: true,
+      };
+    case CLOSE_COLOR_PANEL:
+      return {
+        ...state,
+        viewColorPanel: false,
+      };
     default:
       return state;
   }
 };
 
 export const currentStrokeSelector = (state: RootState) => state.currentStroke;
+
+export const colorPanelState = (state: RootState) => state.viewColorPanel;
